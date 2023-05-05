@@ -4,7 +4,7 @@ function updateIncrementyHTML(){
     DOM(`iup1`).innerText = `[RUP2] ${iupDesc[1]} (${formatWhole(data.incrementy.rebuyableAmt[1])})\n${format(data.incrementy.rebuyableCosts[1])} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
     DOM(`iup2`).innerText = `[RUP3] ${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(data.incrementy.rebuyableCosts[2])} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
     DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
-    DOM('iupRow3').style.display = data.boost.times>40?"flex":"none"
+    DOM('iupRow3').style.display = data.boost.times>42?"flex":"none"
 }
 function switchIUPText(i, mode){
     mode ? DOM(`iup${i}`).innerText = `[UP${i-2}] ${iupDesc[i]}\nCurrently: ${format(iupEffects[i]())}`
