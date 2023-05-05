@@ -4,6 +4,7 @@ function getBarPercent(){
 }
 function getTimeEstimate(){
     if(!data.ord.isPsi)return "Infinity"
+    if(boostReq()<data.ord.ordinal)return "0s"
     return formatTime((boostReq()-data.ord.ordinal)/t2Auto())
 }
 function updateProgressBar(){

@@ -7,7 +7,7 @@ function updateOverflowHTML(){
     DOM(`overCharge`).innerText = ` ${format(getOverflowGain(1))} Overcharge/s`
     DOM(`ocTotal`).innerText = `Your ${format(data.overflow.oc)} Overcharge is`
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         DOM(`bp${i}Effect`).innerText = i==2 ? `/${format(getOverflowEffect(i))}` : `${format(getOverflowEffect(i))}x`
     }
 }
@@ -17,8 +17,8 @@ let getExtraBoosters = () => Math.max(0, data.boost.total-maxNonOverflowBoosters
 let getExtraCharge = () => Math.max(0, data.incrementy.totalCharge-12)
 
 function getOverflowGain(i){
-    if (i == 0) return Math.sqrt(getExtraBoosters())/10
-    return Math.sqrt(getExtraCharge())/10
+    if (i == 0) return Math.sqrt(getExtraBoosters())
+    return getExtraCharge()**1.1
 }
 
 function getOverflowEffect(i){
@@ -31,9 +31,11 @@ function getOverflowEffect(i){
         case 2:
             return Math.max(1, (Math.sqrt(data.overflow.bp+1))*getOverflowEffect(4))
         case 3:
-            return data.overflow.oc > 1 ? Math.max(1, Math.sqrt(data.overflow.oc)) : 1
+            return data.overflow.oc > 1 ? Math.max(1, data.overflow.oc**3) : 1
         case 4:
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
+        case 5:
+            return getExtraBoosters() >= 1000 ? data.overflow.bp**0.6 : 1
         default: return NaN
     }
 }
