@@ -97,6 +97,9 @@ function displayPsiOrd(ord, trim) {
     if(ord === 0) return ""
     if(trim <= 0) return "..."
     if(ord < 4) return extraOrdMarks[ord]
+    if(new Decimal(ord).gte(new Decimal(BHO_VALUE.toString()))) {
+        return "BHOx" + format(ord/Number(BHO_VALUE),2)
+    }
     const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
     const magnitudeAmount = 4*3**magnitude
     let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]

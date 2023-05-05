@@ -129,7 +129,7 @@ function boosterReset(){
 }
 
 function boost(f=false){
-    if(data.boost.times == 33) return createAlert("Endgame!", "Congratulations, you've reached the BHO! For now, there is nothing beyond. I'd love it if you would join the Discord and let me know how you felt about the game!! :)", "Sounds good to me!")
+    //if(data.boost.times == 33) return createAlert("Endgame!", "Congratulations, you've reached the BHO! For now, there is nothing beyond. I'd love it if you would join the Discord and let me know how you felt about the game!! :)", "Sounds good to me!")
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === 0){
@@ -155,7 +155,7 @@ function boost(f=false){
 }
 function boostReq(){
     let scaling = data.boost.times < 30 ? 1 : Math.floor(100*(data.boost.times/15))
-    return data.boost.times < 33 ? (3 ** (data.boost.times+1) * 4 * 10 * scaling) : BHO_VALUE
+    return 3 ** (data.boost.times+1) * 4 * 10 * scaling
 }
 function getBulkBoostAmt(){
     return 1

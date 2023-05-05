@@ -27,7 +27,7 @@ function loadSettingsHTML(){
 
 let timesToLoop = [0,0, 0,0]
 
-let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()
+let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()*iup10Effect()
 
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
@@ -59,7 +59,7 @@ function tick(diff){
         buyMaxFactor() 
         buyMaxAuto()
     }
-    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && data.ord.ordinal < BHO_VALUE) markup(timesToLoop[3]*diff/1000)
+    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1]/* && data.ord.ordinal < BHO_VALUE*/) markup(timesToLoop[3]*diff/1000)
 
     if(data.boost.unlocks[2]) increaseHierarchies(diff)
     //endregion
@@ -113,20 +113,18 @@ function mainLoop() {
     checkAchs()
     uHTML.update()
 }
-document.addEventListener('keydown', (event) => {
-    let key = event.key;
-    if (key === "s") successor(1,true)
-    if (key === "m") maximize()
-    if (key === "i") markup()
-    if (key === "f"){ buyMaxFactor(); buyMaxAuto() }
-}, false);
-
 window.onload = function () {
-    try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
+    let extra = false
+    try { extra = load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
+
     loadTabs()
+    initHTML()
     loadUnlockedHTML()
     loadSettingsHTML()
-    window.setInterval(function () {
-        mainLoop()
-    }, 50);
+
+    if(extra) fixOldSavesP2()
 }
+
+window.setInterval(function () {
+    mainLoop()
+}, 50);
