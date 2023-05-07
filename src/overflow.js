@@ -35,7 +35,7 @@ function getOverflowEffect(i){
         case 4:
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
         case 5:
-            return getExtraBoosters() >= 1000 ? data.overflow.bp**0.6 : 1
+            return getExtraBoosters() >= 1000 ? data.overflow.bp**0.7*getOverflowEffect(4) : 1
         default: return NaN
     }
 }

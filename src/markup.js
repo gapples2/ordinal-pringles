@@ -41,7 +41,7 @@ function markup(n=1){
 
     if(data.chal.active[6]) data.markup.powers = 0
     data.ord.isPsi = false
-    data.markup.powers += opGain()*opMult()
+    data.markup.powers += Math.min(opGain()*opMult(),1e256)
     data.ord.ordinal = 0
     data.ord.over = 0
     data.successorClicks = 0

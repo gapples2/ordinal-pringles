@@ -1,8 +1,8 @@
 const D = x => new Decimal(x)
 //create all the variables in a data object for saving
-const VERSION = "0.0.6"
-const VERSION_NAME = "The Bachmann-Howard Pringle"
-const VERSION_DATE = "May 3rd, 2023"
+const VERSION = "0.0.1: U"
+const VERSION_NAME = "Pringle Cap Removed"
+const VERSION_DATE = "May 7th, 2023"
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
 const BHO_VALUE = 48630661836227112960
@@ -17,14 +17,14 @@ function getDefaultObject() {
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false), isCharged:Array(12).fill(false), unlocks: Array(4).fill(false)},
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:0, hasIUP:Array(12).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
-        hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
+        hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(8).fill(false)},
         overflow: {bp:1, oc:1},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(7).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: [],
-        loadedVersion: "null",
+        loadedVersion: VERSION,
         offline: true
     }
 }
@@ -107,10 +107,23 @@ function fixOldSavesP2(){
             data.boost.times = 30
             data.boost.total = 465
             data.boost.amt = 465
-        } 
+            createAlert('Nerfed :(', `It looks like you had a v0.0.5 save that was beyond endgame. If you had any C7 or C8 completions they have been reset, and if you had more than 30 Factor Boosts you have been reset to 30. Also, Factor Boosts beyond 30 now have a greatly increased requirement!`, 'Onwards!')
+        }
+    }
+    
+    //v0.0.6 => v0.0.1: U
+    if(data.loadedVersion == "0.0.6"){
+        data.loadedVersion = "0.0.1: U"
 
-        createAlert('Nerfed :(', `It looks like you had a v0.0.5 save that was beyond endgame. If you had any C7 or C8 completions they have been reset, and if you had more than 30 Factor Boosts you have been reset to 30. Also, Factor Boosts beyond 30 now have a greatly increased requirement!`, 'Onwards!')
-    } 
+        if(data.hierachies.hasUpgrade.filter(a=>a).length==0)return;
+        
+        let narr = []
+        for(let x=0;x<2;x++){
+            for(let y=0;y<3;y++)narr[x+y*2]=data.hierachies.hasUpgrade[x*3+y]
+        }
+        data.hierachies.hasUpgrade = getDefaultObject().hierachies.hasUpgrade
+        for(let x=0;x<6;x++)data.hierachies.hasUpgrade[x] = narr[x]
+    }
 }
 function exportSave(){
     try {

@@ -27,7 +27,7 @@ function loadSettingsHTML(){
 
 let timesToLoop = [0,0, 0,0]
 
-let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()
+let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[1].effect()
 
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
@@ -122,9 +122,9 @@ window.onload = function () {
     loadUnlockedHTML()
     loadSettingsHTML()
 
-    if(extra) fixOldSavesP2()
+    fixOldSavesP2()
 }
 
 window.setInterval(function () {
-    mainLoop()
+    if(!nan)mainLoop()
 }, 50);

@@ -99,7 +99,7 @@ function updateBoostersHTML(){
 
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.total>=91?'Incrementy':'???'
-    DOM("hierarchiesTab").innerText = data.boost.total>=325?'Hierachies':'???'
+    DOM("hierarchiesTab").innerText = data.boost.total>=325?'Hierarchies':'???'
     DOM("overflowTab").innerText = data.boost.total>=465?'Overflow':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }

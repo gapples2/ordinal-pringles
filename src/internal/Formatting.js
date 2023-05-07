@@ -1,3 +1,5 @@
+let nan = false
+
 //Credit to Acamadea
 function exponentialFormat(num, precision, mantissa = true) {
     let e = num.log10().floor()
@@ -42,7 +44,10 @@ function sumValues(x) {
 
 function format(decimal, precision = 2) {
     decimal = new Decimal(decimal)
-        //if (Decimal.isNaN(decimal)) return  '[ERROR]: NaN'
+        if (Number.isNaN(decimal.mag)||Number.isNaN(decimal.sign)||Number.isNaN(decimal.layer)){
+            nan = true
+            throw  '[ERROR]: NaN'
+        }
         if (decimal.sign < 0) return "-" + format(decimal.neg(), precision)
         if (decimal.mag === Number.POSITIVE_INFINITY) return "Infinity"
         if (decimal.gte("eeee1000")) {
