@@ -10,6 +10,11 @@ function updateOverflowHTML(){
     for (let i = 0; i < 6; i++) {
         DOM(`bp${i}Effect`).innerText = i==2 ? `/${format(getOverflowEffect(i))}` : `${format(getOverflowEffect(i))}x`
     }
+
+    if(getExtraBoosters()>=1000){
+        DOM("bp3Container").style.display = ""
+        DOM("bp3Hidden").style.display = "none"
+    }
 }
 
 let maxNonOverflowBoosters = boostersAtGivenFB(29)
@@ -17,7 +22,7 @@ let getExtraBoosters = () => Math.max(0, data.boost.total-maxNonOverflowBoosters
 let getExtraCharge = () => Math.max(0, data.incrementy.totalCharge-12)
 
 function getOverflowGain(i){
-    if (i == 0) return Math.sqrt(getExtraBoosters())
+    if (i == 0) return data.hierachies.hasUpgrade[8]?getExtraBoosters()**1.1:Math.sqrt(getExtraBoosters())
     return getExtraCharge()**1.1
 }
 
@@ -25,7 +30,7 @@ function getOverflowEffect(i){
     if(data.overflow.bp == 1) return 1
     switch (i) {
         case 0:
-            return Math.max(1, (Math.pow(data.overflow.bp, 1/8))*getOverflowEffect(4))
+            return Math.max(1, (Math.pow(data.overflow.bp, data.hierachies.hasUpgrade[9]?1/2.75:1/8))*getOverflowEffect(4))
         case 1:
             return Math.max(1, (Math.sqrt(data.overflow.bp)*opMult())*getOverflowEffect(4))
         case 2:

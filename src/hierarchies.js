@@ -49,7 +49,7 @@ function initHierarchies(){
     let total2 = 0
     for (let i = 0; i < columns.length; i++) {
         let cost = i == 0 ? 'FGH' : 'SGH'
-        for (let n = 0; n < 4; n++) {
+        for (let n = 0; n < 5; n++) {
             let hup = document.createElement('button')
             hup.className = ' hup'
             hup.id = `hup${i+n*2}`
@@ -65,7 +65,7 @@ function initHierarchies(){
     for (let i = 0; i < data.hierachies.rebuyableAmt.length; i++) {
         DOM(`hb${i}`).addEventListener('click', ()=>buyHBuyable(i))
     }
-    for(let i=0;i<data.hierachies.hasUpgrade.length;i++){
+    for(let i=0;i<10/*data.hierachies.hasUpgrade.length*/;i++){
         DOM(`hup${i}`).addEventListener('click', ()=>buyHUP(i))
     }
 }
@@ -101,6 +101,12 @@ let hupData = [
     { text:"Booster Upgrade 2x4 boosts Incrementy", cost: 1e30, displayCost: "ω<sup>ω3</sup>", effect: ()=> data.hierachies.hasUpgrade[5] ? bup7Effect() : 1 },
     { text:"Improve FGH effect", cost: 1e45, displayCost: "ω<sup>ω4+5</sup>", effect: ()=> 1 },
     { text:"Improve SGH effect", cost: 1e45, displayCost: "ω<sup>ω4+5</sup>", effect: ()=> 1 },
+    { text:"Massively improve booster power gain", cost: 1e60, displayCost: "ω<sup>ω6</sup>", effect: ()=> 1 },
+    { text:"Massively improve the first booster power effect", cost: 1e60, displayCost: "ω<sup>ω6</sup>", effect: ()=> 1 },
+    { text:"tbd", cost: 1e80, displayCost: "ω<sup>ω8</sup>", effect: ()=> 1 },
+    { text:"tbd", cost: 1e80, displayCost: "ω<sup>ω8</sup>", effect: ()=> 1 },
+    { text:"tbd", cost: 1e100, displayCost: "ω<sup>ω<sup>2</sup></sup>", effect: ()=> 1 },
+    { text:"tbd", cost: 1e100, displayCost: "ω<sup>ω<sup>2</sup></sup>", effect: ()=> 1 },
 ]
 
 function increaseHierarchies(diff){
@@ -136,6 +142,7 @@ function buyHBuyable(i){
         data.incrementy.amt -= cost
         ++data.hierachies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
+        return;
     }
     if(data.hierachies.ords[0].ord > cost && i < 3){
         data.hierachies.ords[0].ord -= cost

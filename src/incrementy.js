@@ -1,10 +1,10 @@
 function updateIncrementyHTML(){
     DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyer speed by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω). You cannot gain Incrementy in Challenges.`;
-    DOM(`iup0`).innerText = `[RUP1] ${iupDesc[0]} (${formatWhole(data.incrementy.rebuyableAmt[0])}+${iup7Effect()})\n${format(data.incrementy.rebuyableCosts[0])} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
+    DOM(`iup0`).innerText = `[RUP1] ${iupDesc[0]} (${formatWhole(data.incrementy.rebuyableAmt[0])}+${iup7Effect()+iup10Effect()})\n${format(data.incrementy.rebuyableCosts[0])} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
     DOM(`iup1`).innerText = `[RUP2] ${iupDesc[1]} (${formatWhole(data.incrementy.rebuyableAmt[1])})\n${format(data.incrementy.rebuyableCosts[1])} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
     DOM(`iup2`).innerText = `[RUP3] ${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(data.incrementy.rebuyableCosts[2])} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
     DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
-    DOM('iupRow3').style.display = data.boost.times>43?"flex":"none"
+    DOM('iupRow3').style.display = data.boost.times>34?"flex":"none"
 }
 function switchIUPText(i, mode){
     mode ? DOM(`iup${i}`).innerText = `[UP${i-2}] ${iupDesc[i]}\nCurrently: ${format(iupEffects[i]())}`
@@ -22,8 +22,8 @@ function incrementyGain() {
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
                  'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not effect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
                  'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3',
-                 'Unused charges add free levels to Repeatable Upgrade 1', 'Dynamic factor gain multiplies FGH and SGH gain', 'tbd [ENDGAME]']
-const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 1e20, 1e25, 1e30]
+                 'Unused charges add free levels to Repeatable Upgrade 1', 'Dynamic factor gain multiplies FGH and SGH gain', 'Repeatable Upgrade 3 is multiplicative']
+const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 2.9e29, 1e25, 3.33e33]
 function initIUPs(){
     let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2'), DOM('iupRow3')]
     let total = 0
@@ -66,7 +66,7 @@ function buyIUP(i, r=false){
 
 let iup1Effect = () => Math.max(1, 2**(data.incrementy.rebuyableAmt[0] + iup7Effect() + iup10Effect()))
 let iup2Effect = () => Math.max(1, (3**data.incrementy.rebuyableAmt[1])*iup8Effect())
-let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 ? (Math.max(1, Math.sqrt(data.dy.level)))*(1+(data.incrementy.rebuyableAmt[2])) : 1
+let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 ? (data.incrementy.hasIUP[11]?data.dy.level**(data.incrementy.rebuyableAmt[2]/15):(Math.max(1, Math.sqrt(data.dy.level)))*(1+(data.incrementy.rebuyableAmt[2]))) : 1
 let iup4Effect = () => data.incrementy.hasIUP[3] ? data.boost.times : 1
 let iup5Effect = () => data.incrementy.hasIUP[4] ? data.hierachies.hasUpgrade[3] ? Math.max(1, Math.pow(data.incrementy.amt, 1/12)+1)
 : Math.max(1, Math.pow(data.incrementy.amt, 1/16)+1) : 1
@@ -77,7 +77,7 @@ let iup9Effect = () => data.incrementy.hasIUP[8] ? data.hierachies.hasUpgrade[2]
 : Math.max(1, Math.sqrt(data.incrementy.rebuyableAmt[2])) : 1
 let iup10Effect = () => data.incrementy.hasIUP[9] ? data.incrementy.charge*1.25 : 1
 let iup11Effect = () => data.incrementy.hasIUP[10] ? dyGain()+1 : 1
-let iup12Effect = () => data.incrementy.hasIUP[11] ? 1 : 1
+let iup12Effect = () => data.incrementy.hasIUP[11] ? 1 : 0
 
 let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect, iup10Effect, iup11Effect, iup12Effect]
 
