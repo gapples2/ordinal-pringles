@@ -23,7 +23,7 @@ const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Facto
                  'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not effect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
                  'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3',
                  'Unused charges add free levels to Repeatable Upgrade 1', 'Dynamic factor gain multiplies FGH and SGH gain', 'Repeatable Upgrade 3 is multiplicative']
-const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 2.9e29, 1e25, 3.33e33]
+const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 1.9e19, 1e25, 3.33e33]
 function initIUPs(){
     let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2'), DOM('iupRow3')]
     let total = 0
